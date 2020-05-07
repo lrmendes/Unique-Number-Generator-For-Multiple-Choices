@@ -16,26 +16,26 @@ choices = dict([
     ("choice 8",128), # choosed
 ])
 
-def retrieveValuesDataFromUniqueNumber(entrada, saida=[], start=2**len(choices)):
-    if (entrada == 0):
-        return saida
+def retrieveValuesDataFromUniqueNumber(uniqueValue, output=[], start=2**len(choices)):
+    if (uniqueValue == 0):
+        return output
     else:
-        if(entrada >= start):
-            saida.append(start)
-            return retrieveValuesDataFromUniqueNumber(entrada-start,saida,int(start/2))
+        if(uniqueValue >= start):
+            output.append(start)
+            return retrieveValuesDataFromUniqueNumber(uniqueValue-start,output,int(start/2))
         else:
-            return retrieveValuesDataFromUniqueNumber(entrada,saida,int(start/2))
+            return retrieveValuesDataFromUniqueNumber(uniqueValue,output,int(start/2))
 
-def retrieveKeysDataFromUniqueNumber(entrada, saida=[], start=2**len(choices)):
-    if (entrada == 0):
-        return saida
+def retrieveKeysDataFromUniqueNumber(uniqueValue, output=[], start=2**len(choices)):
+    if (uniqueValue == 0):
+        return output
     else:
-        if(entrada >= start):
-            saida.append([k for k,v in choices.items() if v == start])
+        if(uniqueValue >= start):
+            output.append([k for k,v in choices.items() if v == start])
 
-            return retrieveKeysDataFromUniqueNumber(entrada-start,saida,int(start/2))
+            return retrieveKeysDataFromUniqueNumber(uniqueValue-start,output,int(start/2))
         else:
-            return retrieveKeysDataFromUniqueNumber(entrada,saida,int(start/2))
+            return retrieveKeysDataFromUniqueNumber(uniqueValue,output,int(start/2))
 
 
 def main():
