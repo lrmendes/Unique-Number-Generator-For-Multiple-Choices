@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>Unique Number Select</title>
+        <script>
+            const choices_number = 8;
+            const labels = document.getElementsByTagName('label');
+
+            function getchoiceUniqueValue() {
+                let unique = 0;
+                for (i = 1; i <= choices_number; i++) {
+                    if (document.getElementById('op'+i).checked == true) {
+                        unique = unique + parseInt(document.getElementById('op'+i).value);
+                    }
+                }
+                
+                document.getElementById('prodId').setAttribute("type","text");
+                document.getElementById('prodId').setAttribute("value","Unique Value to Store: "+unique);
+                document.getElementById('output').setAttribute("value",unique);
+            }
+
+            function retrieveDataFromUniqueNumber(input, start = 2**choices_number) {
+                if (input <= 0) return;
+                if (input >= start ) {
+                    for (i = 1; i <= choices_number; i++) {
+                        if (document.getElementById('op'+i).value == start) {
+                            let value = labels[i].innerHTML;
+                            document.getElementById('result').innerHTML += document.getElementById('op'+i).value.toString() + " : " + value + "\n"
+                        }
+                    }
+                    return retrieveDataFromUniqueNumber(input-start, start/2)
+                } else {
+                    //document.getElementById('result').innerHTML += document.getElementById('op'+i).value + "<br>"
+                    //console.log(document.getElementById('op'+i).value);
+                    return retrieveDataFromUniqueNumber(input, start/2)   
+                }
+            }
+        </script>
+        <style>
+            .grid-container {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
+            column-gap: 20px;
+            }
+            .grid-item {
+            background-color: rgba(240, 240, 240, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            }
+        </style>
+    </head>
+        <body>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label for="output">Select Any Choices:</label><p>
+                    <input type="checkbox" id="op1" name="op1" value="1"></input>
+                    <label for="vehicle1">choice 1</label><br>
+                    <input type="checkbox" id="op2" name="op2" value="2"></input>
+                    <label for="vehicle1">choice 2</label><br>
+                    <input type="checkbox" id="op3" name="op3" value="4"></input>
+                    <label for="vehicle1">choice 3</label><br>
+                    <input type="checkbox" id="op4" name="op4" value="8"></input>
+                    <label for="vehicle1">choice 4</label><br>
+                    <input type="checkbox" id="op5" name="op5" value="16"></input>
+                    <label for="vehicle1">choice 5</label><br>
+                    <input type="checkbox" id="op6" name="op6" value="32"></input>
+                    <label for="vehicle1">choice 6</label><br>
+                    <input type="checkbox" id="op7" name="op7" value="64"></input>
+                    <label for="vehicle1">choice 7</label><br>
+                    <input type="checkbox" id="op8" name="op8" value="128"></input>
+                    <label for="vehicle1">choice 8</label><p>
+                    <input type="button" onClick="getchoiceUniqueValue()" value="Get Unique Number"><p>
+                    <input id="prodId" name="prodId" type="hidden" value="-">
+                </p>
+                </div>
+
+                <div class="grid-item">
+                    <label for="output">Convert Unique Number to Choices:</label><p>
+                    <input id="output" name="output" type="text" value="">
+                    <input type="button" onClick="getElementById('result').innerHTML = ''; retrieveDataFromUniqueNumber(getElementById('output').value)" value="Convert"><p>
+
+                    <label for="w3mission">Recovered Choices:</label><br>
+                    <textarea id="result" rows="8" cols="35"></textarea>
+
+                </div>
+        </div>
+        </body>
+    
+</html>

@@ -1,22 +1,22 @@
 import json
 
-# Key = Choise String | Value = Choise Value
-# The max number of different choises are 32 (for a integer) 
-# Choise value always is the 2 raised by Choise Index
+# Key = Choice String | Value = Choice Value
+# The max number of different choices are 32 (for a integer) 
+# Choice value always is the 2 raised by Choice Index
 # V Starts with 2 raised by 0 and Ends with 2 raised by
-# Where N is the number of choises
-choises = dict([
-    ("choise 1",1),
-    ("choise 2",2),
-    ("choise 3",4),
-    ("choise 4",8),
-    ("choise 5",16),
-    ("choise 6",32),
-    ("choise 7",64),
-    ("choise 8",128),
+# Where N is the number of choices
+choices = dict([
+    ("choice 1",1), # choosed
+    ("choice 2",2),
+    ("choice 3",4), # choosed
+    ("choice 4",8),
+    ("choice 5",16),
+    ("choice 6",32),
+    ("choice 7",64),
+    ("choice 8",128), # choosed
 ])
 
-def retrieveValuesDataFromUniqueNumber(entrada, saida=[], start=2**len(choises)):
+def retrieveValuesDataFromUniqueNumber(entrada, saida=[], start=2**len(choices)):
     if (entrada == 0):
         return saida
     else:
@@ -26,12 +26,12 @@ def retrieveValuesDataFromUniqueNumber(entrada, saida=[], start=2**len(choises))
         else:
             return retrieveValuesDataFromUniqueNumber(entrada,saida,int(start/2))
 
-def retrieveKeysDataFromUniqueNumber(entrada, saida=[], start=2**len(choises)):
+def retrieveKeysDataFromUniqueNumber(entrada, saida=[], start=2**len(choices)):
     if (entrada == 0):
         return saida
     else:
         if(entrada >= start):
-            saida.append([k for k,v in choises.items() if v == start])
+            saida.append([k for k,v in choices.items() if v == start])
 
             return retrieveKeysDataFromUniqueNumber(entrada-start,saida,int(start/2))
         else:
@@ -39,15 +39,15 @@ def retrieveKeysDataFromUniqueNumber(entrada, saida=[], start=2**len(choises)):
 
 
 def main():
-    # Get a unique choise number by sum of user choises
-    myChoises = choises["choise 1"] + choises["choise 3"] + choises["choise 8"]
-    print("Your unique choise number to store in database/user: ",myChoises)
+    # Get a unique choice number by sum of user choices
+    myChoices = choices["choice 1"] + choices["choice 3"] + choices["choice 8"]
+    print("Your unique choice number to store in database/user: ",myChoices)
 
 
     # Now you can retrieve all the chosen options by that function
-    myChoisesVectorKeys = retrieveKeysDataFromUniqueNumber(myChoises)
-    myChoisesVectorValues = retrieveValuesDataFromUniqueNumber(myChoises)
-    print("\nInput Number: ",myChoises)
-    print("\nInput Number Chosen Keys: ", myChoisesVectorKeys)
-    print("Input Number Chosen Values : ", myChoisesVectorValues)
+    myChoicesVectorKeys = retrieveKeysDataFromUniqueNumber(myChoices)
+    myChoicesVectorValues = retrieveValuesDataFromUniqueNumber(myChoices)
+    print("\nConvert Unique Number to Choices: ",myChoices)
+    print("\nUnique Number Chosen Keys: ", myChoicesVectorKeys)
+    print("Unique Number Chosen Values : ", myChoicesVectorValues)
 main()
